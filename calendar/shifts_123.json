@@ -1,0 +1,48 @@
+[
+  {
+    "title": "N",
+    "start": "2016-06-07",
+    "roster": [
+      {
+        "employee": "Paul Simon",
+        "shift": "D"
+      },
+      {
+        "employee": "Will Smith",
+        "shift": "P"
+      },
+      {
+        "employee": "Mike Tyson",
+        "shift": "N"
+      },
+      {
+        "employee": "Sarah Connor",
+        "shift": "P+d"
+      }
+    ]
+  },
+  {
+    "title": "u",
+    "start": "2016-06-08"
+  },
+  {
+    "title": "d",
+    "start": "2016-06-09"
+  },
+  {
+    "title": "P",
+    "start": "2016-06-10"
+  },
+  {
+    "title": "R",
+    "start": "2016-06-11"
+  },
+  {
+    "title": "R",
+    "start": "2016-06-12"
+  },
+  {
+    "title": "N",
+    "start": "2016-06-13"
+  }
+]
