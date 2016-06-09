@@ -1,11 +1,13 @@
 package cz.ct24.shifts.service;
 
 import com.github.jtail.jpa.util.EntityUtils;
+import cz.ct24.shifts.model.Born_;
 import cz.ct24.shifts.model.Employee;
 import cz.ct24.shifts.model.Employee_;
 import cz.ct24.shifts.model.RosterChecksum;
 import cz.ct24.shifts.model.RosterChecksum_;
 import cz.ct24.shifts.model.Shift;
+import cz.ct24.shifts.model.Shift_;
 import cz.ct24.shifts.parser.Roster;
 import cz.ct24.shifts.parser.XlsParser;
 import lombok.extern.slf4j.Slf4j;
@@ -14,10 +16,12 @@ import org.apache.commons.codec.digest.DigestUtils;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.Root;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -90,6 +94,33 @@ public class RosterService {
                         em.merge(new Shift(employee, entry.getValue(), date, now));
                     });
         });
+    }
+
+    /**
+     * Returns all employees ever created
+     * @return
+     */
+    public List<Employee> getTeam() {
+        return EntityUtils.find(em, Employee.class).desc(Employee_.name).list();
+    }
+
+    /**
+     * Returns employees having shifts within given dates
+     * @param start
+     * @param end
+     * @return
+     */
+    public List<Employee> getTeam(Date start, Date end) {
+        return EntityUtils.find(em, Employee.class).bySubquery(Shift.class, (cb, employeeRoot, subquery) -> {
+            Root<Shift> shiftRoot = subquery.from(Shift.class);
+            return cb.exists(
+                    subquery.select(shiftRoot)
+                            .where(
+                                    cb.equal(shiftRoot.get(Shift_.employee), employeeRoot),
+                                    cb.greaterThanOrEqualTo(shiftRoot.get(Born_.born), start),
+                                    cb.lessThanOrEqualTo(shiftRoot.get(Born_.born), end)));
+
+        }).desc(Employee_.name).list();
     }
 
 }

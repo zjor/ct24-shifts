@@ -1,11 +1,14 @@
 package cz.ct24.shifts.controller;
 
 import cz.ct24.shifts.controller.dto.JShift;
+import cz.ct24.shifts.model.Employee;
 import cz.ct24.shifts.parser.Roster;
 import cz.ct24.shifts.service.RosterService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,10 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -26,14 +33,25 @@ import java.util.Optional;
 @RequestMapping("roster")
 public class RosterController {
 
+    public static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-mm-dd");
+
     @Inject
     private RosterService rosterService;
 
-//    @RequestMapping(value = "team", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseBody
-//    public Collection<Employee> getTeam() {
-//        return rosterService.getRoster().getTeam().values();
-//    }
+    @RequestMapping(value = "team", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Collection<Employee> getTeam(
+            @RequestParam(value = "start", required = false) String start,
+            @RequestParam(value = "end", required = false) String end
+    ) throws ParseException {
+        if (start == null || end == null) {
+            return rosterService.getTeam();
+        } else {
+            Date startDate = DATE_FORMAT.parse(start);
+            Date endDate = DATE_FORMAT.parse(end);
+            return rosterService.getTeam(startDate, endDate);
+        }
+    }
 
 //    @RequestMapping(value = "/date/{year:\\d\\d\\d\\d}-{month:\\d\\d}/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseBody
@@ -99,6 +117,11 @@ public class RosterController {
         return shifts;
     }
 
-
+    @ExceptionHandler({ParseException.class})
+    @ResponseBody
+    public ResponseEntity<?> errorHandler(Exception ex) {
+        log.error(ex.getMessage(), ex);
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
 
 }
