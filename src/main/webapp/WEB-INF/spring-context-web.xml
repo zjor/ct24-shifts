@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+       <context:annotation-config/>
+
+       <jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/dataSource" expected-type="javax.sql.DataSource"/>
+
+       <bean id="sqlDialect" class="java.lang.String">
+              <constructor-arg value="org.hibernate.dialect.PostgreSQL9Dialect"/>
+       </bean>
+
+       <context:component-scan base-package="cz.ct24.shifts.service"/>
+
+</beans>

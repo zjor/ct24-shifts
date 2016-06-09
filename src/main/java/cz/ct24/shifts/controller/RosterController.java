@@ -1,7 +1,6 @@
 package cz.ct24.shifts.controller;
 
 import cz.ct24.shifts.controller.dto.JShift;
-import cz.ct24.shifts.model.Employee;
 import cz.ct24.shifts.parser.Roster;
 import cz.ct24.shifts.service.RosterService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,11 +29,11 @@ public class RosterController {
     @Inject
     private RosterService rosterService;
 
-    @RequestMapping(value = "team", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public Collection<Employee> getTeam() {
-        return rosterService.getRoster().getTeam().values();
-    }
+//    @RequestMapping(value = "team", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//    @ResponseBody
+//    public Collection<Employee> getTeam() {
+//        return rosterService.getRoster().getTeam().values();
+//    }
 
 //    @RequestMapping(value = "/date/{year:\\d\\d\\d\\d}-{month:\\d\\d}/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseBody
@@ -81,7 +80,7 @@ public class RosterController {
 
         Roster roster = rosterService.getRoster();
 
-        String name = roster.getTeam().get(userId).getName();
+        String name = null;//roster.getTeam().get(userId).getName();
         List<JShift> shifts = new LinkedList<>();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

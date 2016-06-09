@@ -20,7 +20,7 @@ public class IndexController {
     public ModelAndView index() {
         ModelAndView mav = new ModelAndView("index");
 
-        mav.addObject("team", rosterService.getRoster().getTeam().values());
+//        mav.addObject("team", rosterService.getRoster().getTeam().values());
 
         return mav;
 

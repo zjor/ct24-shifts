@@ -7,6 +7,14 @@
 
     <GlobalNamingResources>
 
+        <Resource name="jdbc/dataSource"
+                  url="jdbc:postgresql://localhost:5432/bank_demo"
+                  username="test"
+                  password="testpassword"
+                  auth="Container" type="javax.sql.DataSource" driverClassName="org.postgresql.Driver"
+                  maxActive="20" maxIdle="10" maxWait="-1"
+                />
+
         <Resource name="UserDatabase" auth="Container"
                   type="org.apache.catalina.UserDatabase"
                   description="User database that can be updated and saved"

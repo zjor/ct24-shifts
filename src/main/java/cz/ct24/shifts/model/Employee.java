@@ -4,13 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Employee {
+@Entity
+@Table(name = "employee")
+public class Employee extends Model {
 
-    private String id;
-
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
 }

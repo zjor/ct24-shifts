@@ -50,7 +50,7 @@ public class XlsParser {
         String[] team = teamRow.getRight();
         log.info("Month: {}, Team({}): {}", teamRow.getLeft(), Arrays.toString(team));
 
-        Arrays.stream(team).forEach(roster::create);
+        Arrays.stream(team).filter(t -> t != null).forEach(roster::create);
 
         int startRow = getBeginningOfMonthRow(sheet);
         for (int r = startRow; r < rows; r++) {

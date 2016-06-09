@@ -7,18 +7,17 @@
 
     <display-name>CT24 Shifts Viewer</display-name>
 
-    <!--<listener>-->
-        <!--<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>-->
-    <!--</listener>-->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
 
-    <!--<context-param>-->
-        <!--<param-name>contextConfigLocation</param-name>-->
-        <!--<param-value>-->
-            <!--classpath*:spring-context-db.xml-->
-            <!--classpath*:com/upupapp/platform/commons/logging/spring-context-logging.xml-->
-            <!--/WEB-INF/spring-context-web.xml-->
-        <!--</param-value>-->
-    <!--</context-param>-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath*:spring-context-persistence.xml
+            /WEB-INF/spring-context-web.xml
+        </param-value>
+    </context-param>
 
     <servlet>
         <servlet-name>dispatcher</servlet-name>
