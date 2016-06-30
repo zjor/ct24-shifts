@@ -69,7 +69,7 @@ public class RosterService {
     }
 
     private InputStream getRosterResource() {
-        return getClass().getClassLoader().getResourceAsStream("data/shifts.xls");
+        return getClass().getClassLoader().getResourceAsStream("data/shifts_2016.xls");
     }
 
     public Roster getRoster() {

@@ -86,6 +86,7 @@ public class XlsParser {
     }
 
     private int getRightBound(HSSFSheet sheet) {
+        HSSFRow firstRow = sheet.getRow(0);
         HSSFRow row = sheet.getRow(1);
         String a = row.getCell(0).getStringCellValue();
         int r = 1;
@@ -94,6 +95,12 @@ public class XlsParser {
             if (cell != null && a.equals(cell.getStringCellValue())) { /* left cell equals right cell => all content goes in between */
                 break;
             }
+
+            HSSFCell cellAbove = firstRow.getCell(r);
+            if (cellAbove == null || cellAbove.getStringCellValue() == null) { /* cell above is empty, e.i. current column doesn't correspond to data */
+                break;
+            }
+
             r++;
         }
         return r;
