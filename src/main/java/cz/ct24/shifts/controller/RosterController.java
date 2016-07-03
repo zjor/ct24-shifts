@@ -96,7 +96,7 @@ public class RosterController {
         LocalDate startDate = LocalDate.parse(start);
         LocalDate endDate = LocalDate.parse(end);
 
-        Roster roster = rosterService.getRoster();
+        Roster roster = null;//rosterService.getRoster();
 
         String name = null;//roster.getTeam().get(userId).getName();
         List<JShift> shifts = new LinkedList<>();

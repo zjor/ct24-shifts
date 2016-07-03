@@ -8,8 +8,6 @@
     <context:annotation-config/>
     <context:component-scan base-package="cz.ct24.shifts.controller"/>
 
-    <bean class="cz.ct24.shifts.service.RosterService" init-method="init"/>
-
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>

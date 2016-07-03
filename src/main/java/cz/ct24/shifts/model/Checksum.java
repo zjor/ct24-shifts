@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.Date;
 
@@ -16,14 +18,19 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "roster_checksum")
-public class RosterChecksum extends Born {
+@Table(name = "checksum")
+public class Checksum extends Born {
+
+    @ManyToOne
+    @JoinColumn(name = "resource_id")
+    private Resource resource;
 
     @Column(name = "md5")
     private String md5;
 
-    public RosterChecksum(String md5, Date born) {
+    public Checksum(Resource resource, String md5, Date born) {
         setBorn(born);
+        this.resource = resource;
         this.md5 = md5;
     }
 }
